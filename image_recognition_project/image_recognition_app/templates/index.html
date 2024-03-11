@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recognition App</title>
+</head>
+<body>
+    <h1>Image Recognition App</h1>
+    
+    <form action="/upload/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
+        <button type="submit">Upload Image</button>
+    </form>
+    
+    {% if filename %}
+    <img src="/media/images/{{ filename }}" alt="Uploaded Image" width="400">
+    <p>Prediction:</p>
+    <ul>
+        {% for pred in prediction %}
+            <li>{{ pred.1 }} (Class {{ pred.0 }}): {{ pred.2 }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
